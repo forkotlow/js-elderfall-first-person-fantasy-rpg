@@ -1,11 +1,17 @@
 import { Renderer } from "./core/renderer.js"
 import { fr } from "./utils/framerate-utility.js"
 
-const renderer = new Renderer('canvas',300,300);
+//INSTANCES
+const renderer = new Renderer('canvas',400,400);
+
+//HTML ELEMENT REFERENCES
+const fpsToggleButton = document.getElementById('debug-fps-toggle');
 
 
+//GLOBAL VARS
 const FPS = 60;
 let INTERVAL = Math.floor( (1000/FPS) );
+
 let lastPassedTime = 0;
 let deltaTime = 0; //Time passed since last frame;
 let fpsDisplayText = "29";
@@ -18,7 +24,10 @@ function getDeltaTime(){
   return deltaTime;
 }
 
+//hide/ show Fps UI on click
+fpsToggleButton.addEventListener('click', ()=>{ fr.toggleFpsRate(); } );
 
+//Runs every frame
 function updatef(){
   deltaTime = getDeltaTime();
   fpsDisplayText = fr.getFpsRate(deltaTime, FPS);
@@ -26,13 +35,8 @@ function updatef(){
   //Clears previous draw
   renderer.clearAll();
 
-  //ctx.fillStyle = "white";
-  //ctx.fillRect(0,0,canvas.width,canvas.height);
-
-
 
   renderer.drawRect(100,100,20,20,"red");
-  
   
   //Render fps-rate UI on canvas
   fr.renderFPS(renderer, fpsDisplayText, 20, 20, 16);
@@ -40,6 +44,7 @@ function updatef(){
   //infinite gameloop
   setTimeout(updatef, INTERVAL);
 }
+
 
 window.onload = function(){
   updatef();
