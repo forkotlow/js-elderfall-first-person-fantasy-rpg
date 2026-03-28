@@ -1,50 +1,44 @@
-let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext('2d');
+import { Renderer } from "./core/renderer.js"
+import { fr } from "./utils/framerate-utility.js"
 
-ctx.font = "12px Arial";
-canvas.width = 300;
-canvas.height = 300;
-//canvas.width = window.innerWidth;
-//canvas.height = window.innerHeight;
+const renderer = new Renderer('canvas',300,300);
 
 
-const _fps = 60;
-let showFpsRate = true; // flag to hide/show fps-rate in canvas
-let frameDelay = Math.floor(1000/_fps);
-let cycleCount = 0;
-let oldCycleTime = 0;
-let frameRate = "29";
+const FPS = 60;
+let INTERVAL = Math.floor( (1000/FPS) );
+let lastPassedTime = 0;
+let deltaTime = 0; //Time passed since last frame;
+let fpsDisplayText = "29";
 
-//calculate fps rate
-function calculateFps(){
-  cycleCount++;
-  if(cycleCount >= _fps) { cycleCount = 0; }
-  let startTime = Date.now();
-  let cycleTime = startTime - oldCycleTime;
-  oldCycleTime = startTime;
-  if(cycleCount % _fps == 0) { 
-    frameRate = Math.floor(1000/cycleTime);
-  }
-  return frameRate;
+//calculates deltaTime
+function getDeltaTime(){
+  let currentTime = Date.now();
+  let deltaTime = currentTime -lastPassedTime;
+  lastPassedTime = currentTime;
+  return deltaTime;
 }
 
 
 function updatef(){
+  deltaTime = getDeltaTime();
+  fpsDisplayText = fr.getFpsRate(deltaTime, FPS);
+
   //Clears previous draw
-  ctx.clearRect(0,0,canvas.width, canvas.height);
+  renderer.clearAll();
+
+  //ctx.fillStyle = "white";
+  //ctx.fillRect(0,0,canvas.width,canvas.height);
 
 
-  ctx.fillStyle = "white";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  renderer.drawRect(100,100,20,20,"red");
   
-  if(showFpsRate){
-    let fpsRate = calculateFps();
-    ctx.fillStyle = "red";
-    ctx.fillText("FPS:"+fpsRate,5,10);
-  }
+  
+  //Render fps-rate UI on canvas
+  fr.renderFPS(renderer, fpsDisplayText, 20, 20, 16);
 
   //infinite gameloop
-  setTimeout(updatef, frameDelay);
+  setTimeout(updatef, INTERVAL);
 }
 
 window.onload = function(){
