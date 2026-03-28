@@ -1,0 +1,55 @@
+:root{
+--background-color: whitesmoke;
+--border-color: darkgrey;
+--font-color: #0a0a0a;
+
+}
+
+*{
+margin: 0;
+padding: 0;
+
+color: var(--font-color);
+font-family: Arial, Sans-Serif;
+box-sizing: border-box;
+
+}
+
+body{
+margin: 0;
+padding: 0;
+background-color: var(--background-color);
+
+}
+
+canvas{
+border: 2px solid;
+border-color: var(--border-color);
+image-rendering: pixelated;
+image-rendering: crisp-edges;
+
+max-width: 100%;
+max-height: 100%;
+}
+
+button{
+margin: 5px;
+padding: 5px;
+
+color: white;
+font-weight: 700;
+
+background-color: #3fa9f9;
+border: 2px solid;
+border-color: #0a0a0a;
+border-radius: 5px;
+}
+button:active{
+background-color: #5fb9f9;
+border-color: #808080;
+}
+
+p{
+margin: 5px;
+padding: 5px;
+}
