@@ -43,6 +43,8 @@ background-color: #3fa9f9;
 border: 2px solid;
 border-color: #0a0a0a;
 border-radius: 5px;
+
+user-select: none;
 }
 button:active{
 background-color: #5fb9f9;
@@ -52,4 +54,5 @@ border-color: #808080;
 p{
 margin: 5px;
 padding: 5px;
+user-select: none;
 }

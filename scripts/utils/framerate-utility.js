@@ -1,5 +1,5 @@
 let cycleCount = 0;
-let fpsRate = "29";
+let fpsRate = "54";
 let showUI = true;  //flag to hide/show UI
 
 export const fr = {

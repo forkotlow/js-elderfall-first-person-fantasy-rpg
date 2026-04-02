@@ -1,4 +1,3 @@
-
 class Renderer{
 
   constructor(canvasID, width, height){
@@ -24,6 +23,22 @@ class Renderer{
     this.ctx.font = size+"px Arial" ;
     this.ctx.fillStyle = color;
     this.ctx.fillText(myText, startX, startY);
+  }
+
+  drawCircle(startX, startY, radius, startAngle,endAngle){
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "red";
+    this.ctx.arc(startX,startY,radius,startAngle,endAngle);
+    this.ctx.fill();
+  }
+
+  castRay(startX,startY,endX,endY,color="red"){
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX,startY);
+    this.ctx.lineTo(endX,endY)
+    this.ctx.strokeStyle = color;
+    this.ctx.lineWidth = 1;
+    this.ctx.stroke();
   }
 
   clearAll(){
